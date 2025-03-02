@@ -25,6 +25,7 @@ export const routes: Routes = [
     component: AuthLayoutComponent,
     canActivate: [checkTokenGuard],
     children: [
+      { path: '', redirectTo: 'login', pathMatch: 'full' },
       // { path: 'login', component: LoginComponent, title: 'login' },
       {
         path: 'login',
@@ -139,7 +140,7 @@ export const routes: Routes = [
       // },
       {
         path: 'allorders',
-        
+
         canActivate: [authGuard],
         loadComponent: () =>
           import('./features/pages/all-orders/all-orders.component').then(
