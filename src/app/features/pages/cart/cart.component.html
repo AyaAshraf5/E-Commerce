@@ -1,0 +1,141 @@
+<!-- w-16 md:w-32 max-h-full -->
+<section>
+  <div class="flex flex-wrap justify-between my-8">
+    <div class="w-full bg-slate-50 p-6 sm:w-[90%] mx-auto">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="font-semibold text-3xl">Cart Shop</h2>
+        <a
+          [routerLink]="['/checkout', cartId]"
+          class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+          >Pay Now</a
+        >
+      </div>
+      <h4 class="text-xl">
+        Total Price:
+        <span class="text-green-700 font-semibold">{{ totalPrice }} EGP</span>
+      </h4>
+      @if(totalPrice){
+      <div class="relative sm:rounded-lg">
+        <table
+          class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+        >
+          <tbody>
+            @for (item of cartList; track $index) {
+            <tr class="border-b border-gray-200">
+              <div class="flex flex-wrap items-center">
+                <td class="p-4">
+                  <img
+                    [src]="item.product.imageCover"
+                    class="max-w-full md:w-32"
+                    alt="Apple Watch"
+                  />
+                </td>
+                <div class="flex justify-between items-center flex-1 p-4">
+                  <td class="font-semibold text-gray-900 dark:text-white">
+                    <div>
+                      <h3 class="text-lg">{{ item.product.title }}</h3>
+                      <h4 class="py-2">{{ item.price }} EGP</h4>
+                      <a
+                        (click)="removeProduct(item.product._id)"
+                        class="cursor-pointer font-medium text-red-600 dark:text-red-500 hover:underline"
+                        >Remove</a
+                      >
+                    </div>
+                  </td>
+                  <td class="py-4">
+                    <div class="flex items-center">
+                      <button
+                        (click)="updateCart(item.product._id, item.count - 1)"
+                        class="cursor-pointer inline-flex items-center justify-center p-1 me-3 text-sm font-medium h-6 w-6 text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                        type="button"
+                      >
+                        <span class="sr-only">Quantity button</span>
+                        <svg
+                          class="w-3 h-3"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 18 2"
+                        >
+                          <path
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M1 1h16"
+                          />
+                        </svg>
+                      </button>
+                      <div>
+                        <input
+                          type="number"
+                          id="first_product"
+                          class="bg-gray-50 w-14 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block px-2.5 py-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                          [placeholder]="item.count"
+                          required
+                        />
+                      </div>
+                      <button
+                        (click)="updateCart(item.product._id, item.count + 1)"
+                        class="cursor-pointer inline-flex items-center justify-center h-6 w-6 p-1 ms-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                        type="button"
+                      >
+                        <span class="sr-only">Quantity button</span>
+                        <svg
+                          class="w-3 h-3"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 18 18"
+                        >
+                          <path
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M9 1v16M1 9h16"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </td>
+                </div>
+              </div>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      }@else { }
+      <div class="flex justify-center items-center mt-5">
+        <button
+          (click)="clearCart()"
+          class="cursor-pointer px-4 py-2 border border-green-700 rounded-lg text-green-700 text-center"
+        >
+          Clear Your Cart
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <div class="md:w-1/3">
+      <div
+        class="w-full p-6 max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
+      >
+        <h2 class="text-center text-3xl text-green-700">Cart Product</h2>
+        <div class="px-5 pb-5 text-center">
+          <span class="text-2xl font-light text-gray-900 dark:text-white"
+            >{{ totalPrice }} EGP</span
+          >
+          <div class="flex items-center justify-between">
+            <a
+              href="#"
+              class="text-white mt-4 w-full bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+              >Pay Now</a
+            >
+          </div>
+        </div>
+      </div>
+    </div> -->
